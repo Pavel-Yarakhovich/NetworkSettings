@@ -1,0 +1,10 @@
+.container {
+	width: 100%;
+	display: flex;
+	flex-flow: column;
+	justify-content: flex-start;
+}
+
+.inputGroup {
+	opacity: 0.5;
+}
