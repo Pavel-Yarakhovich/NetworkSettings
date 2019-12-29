@@ -2,12 +2,20 @@ import React from 'react';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import styles from './RadioBtnComponent.module.css';
-import { styled } from '@material-ui/core/styles';
+import styled from 'styled-components';
 
-const StyledRadio = styled(Radio) ({
-	color: 'purple'
-})
+const StyledRadio = styled(Radio)`
+&& {
+	color: purple;
+	}
+`
+
+const Container = styled.div`
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+`
 
 const RadioBtnComponent = React.memo(({
 	firstChoice,
@@ -19,7 +27,7 @@ const RadioBtnComponent = React.memo(({
 	appliedTo }) => {
 
 	return (
-		<div className={styles.container} >
+		<Container>
 			<RadioGroup aria-label="position" name="position" column="true">
 				<FormControlLabel
 					value="auto"
@@ -40,7 +48,7 @@ const RadioBtnComponent = React.memo(({
 					checked={!radioValue}
 				/>
 			</RadioGroup>
-		</div>
+		</Container>
 	);
 });
 

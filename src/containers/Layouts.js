@@ -1,6 +1,22 @@
 import React from 'react';
 import { ButtonComp, Wifi, Ethernet } from '../components';
-import styles from './Layouts.module.css';
+import styled from 'styled-components';
+
+const Container = styled.div`
+	margin: 20px;
+	background: linear-gradient(to top, purple, transparent 4px);
+
+	@media(min-width: 1350px) {
+		width: 1300px;
+	}
+`
+
+const Grid = styled.div`
+	display: flex;
+	justify-content: space-between;
+	border-radius: 2px;
+	box-shadow: 2px 2px 4px purple;
+`
 
 const regExpIP = /^(25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[0-9]{2}|[0-9])(\.(25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[0-9]{2}|[0-9])){3}$/;
 
@@ -240,8 +256,8 @@ const Layouts = React.memo(props => {
 	wifiEnabled, errorWifiIP, errorWifiSubnetMask, errorWifiPreferredDNS, errorWifiSecurityKey, wifiNetworkName ])
 
 	return (
-		<div className={styles.container}>
-			<div className={styles.grid} >
+		<Container>
+			<Grid>
 				<Ethernet
 					autoIP={autoIPEthernet}
 					autoSelectedIP={setToAutoSelectedIP}
@@ -305,14 +321,14 @@ const Layouts = React.memo(props => {
 
 					wifiAltDNS={wifiAltDNS}
 					wifiAltDNSChanged={wifiAltDNSChangedHandler} />
-			</div>
+			</Grid>
 			<ButtonComp 
 				clicked={saveBtnClickedHandler}
 				disabled={saveBtnDisabled}>Save</ButtonComp>
 			<ButtonComp 
 				variant={"outlined"}
 				clicked={cancelBtnClickedHandler}>Cancel</ButtonComp>
-		</div>
+		</Container>
 	);
 });
 

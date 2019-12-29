@@ -3,18 +3,32 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import { styled } from '@material-ui/core/styles';
-import styles from './EnableSecurity.module.css';
+import styled from 'styled-components';
 
-const Input = styled(TextField) ({
-	flexBasis: '50%',
-	marginLeft: '15px',
-	borderRadius: '2px'
-})
+const Input = styled(TextField)`
+&& {
+	flex-basis: 50%;
+	margin-left: 15px;
+	border-radius: 2px;
+}`
 
-const StyledCheckbox = styled(Checkbox) ({
-	color: 'purple'
-})
+const StyledCheckbox = styled(Checkbox)`
+&& {
+	color: purple;
+}`
+
+const Container = styled.div`
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	margin: 4px 0;
+	opacity: 1;
+
+	${props => (!props.wifiSecurityEnabled || props.disabled) &&`
+		opacity: 0.5;
+	`}
+`
 
 const EnableSecurity = React.memo(({
 	required,
@@ -39,7 +53,7 @@ const EnableSecurity = React.memo(({
 				}
 				label="Enable Wireless Security"
 			/>
-			<div className={styles.container} style={{ opacity: !wifiSecurityEnabled || disabled ? '0.5' : '1' }}>
+			<Container wifiSecurityEnabled={wifiSecurityEnabled} disabled={disabled}>
 				<Typography variant="subtitle1">Security Key: {required && asterisk} </Typography>
 				<Input
 					variant="outlined"
@@ -50,7 +64,7 @@ const EnableSecurity = React.memo(({
 					onChange={wifiSecurityKeyChanged}
 					error={errorWifiSecurityKey ? true : false}
 					label={errorWifiSecurityKey} />
-			</div>
+			</Container>
 		</>
 	);
 });
