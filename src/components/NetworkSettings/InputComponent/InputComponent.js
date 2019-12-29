@@ -1,16 +1,26 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import styles from './InputComponent.module.css';
-import { styled } from '@material-ui/core/styles';
+import styled  from 'styled-components';
 
-const Input = styled(TextField) ({
-	flexBasis: '50%',
-	marginLeft: '15px',
-	borderRadius: '2px'
-})
+const Input = styled(TextField)`
+	&& {
+		flex-basis: 50%;
+		margin-left: 15px;
+		border-radius: 2px
+	}
+`
+const Container = styled.div`
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	margin: 4px 0;
+`
 
-const asterisk = <span style={{ color: 'red' }}>*</span>;
+const Asterisk = styled.span`
+	color: red;
+`
 
 const InputComponent = React.memo(({
 	label,
@@ -23,8 +33,8 @@ const InputComponent = React.memo(({
 	errorMessage }) => {
 
 	return (
-		<div className={styles.container}>
-			<Typography variant="subtitle1">{ label }: { required && asterisk } </Typography>
+		<Container>
+			<Typography variant="subtitle1">{ label }: { required && <Asterisk>*</Asterisk> } </Typography>
 			<Input
 				variant="outlined"
 				size="small"
@@ -34,7 +44,7 @@ const InputComponent = React.memo(({
 				value={inputValue}
 				label={errorMessage}
 				error={errorMessage ? true : false} />
-		</div>
+		</Container>
 	);
 });
 

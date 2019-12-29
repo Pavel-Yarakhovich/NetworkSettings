@@ -1,6 +1,21 @@
 import React from 'react';
 import AdressSettings from '../AdressSettings/AdressSettings';
-import styles from './EthernetSettings.module.css';
+import styled from 'styled-components';
+
+const Container = styled.div`
+	flex-basis: 50%;
+	display: flex;
+	flex-flow: column;
+	justify-content: flex-start;
+	padding: 15px;
+	box-sizing: border-box;
+`
+
+const Title = styled.h2`
+	font-weight: 700;
+	margin: 0 0 5px;
+	color: purple;
+`
 
 const Ethernet = React.memo(({
 	autoIP,
@@ -16,10 +31,9 @@ const Ethernet = React.memo(({
 	ethernetAltDNS, ethernetAltDNSChanged }) => {
 
 	return (
-		<div className={styles.container}>
-			<h2 className={styles.title}>Ethernet settings</h2>
+		<Container>
+			<Title>Ethernet settings</Title>
 			<AdressSettings
-				className={styles.container}
 				autoIP={autoIP}
 				autoSelectedIP={autoSelectedIP}
 				manualSelectedIP={manualSelectedIP}
@@ -40,7 +54,7 @@ const Ethernet = React.memo(({
 				defaultGatewayChanged={ethernetDefaultGatewayChanged}
 				altDNS={ethernetAltDNS}
 				altDNSChanged={ethernetAltDNSChanged} />
-		</div>
+		</Container>
 	);
 });
 

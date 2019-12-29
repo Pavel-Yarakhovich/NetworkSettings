@@ -40,10 +40,10 @@ const MyButton = styled.button`
 const ButtonComp = React.memo(({ variant, children, clicked, disabled }) => {
 	return(
 		<MyButton 
-			variant={variant} 
+			variant={ variant } 
 			onClick={ clicked }
-			disabled={disabled ? true : false}
-			>{children}
+			disabled={ disabled ? true : false }
+			>{ children }
 			</MyButton>
 	);
 });

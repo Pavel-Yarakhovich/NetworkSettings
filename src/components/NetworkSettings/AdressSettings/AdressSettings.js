@@ -1,7 +1,22 @@
 import React from 'react';
 import InputComponent from '../InputComponent/InputComponent';
 import RadioBtnComponent from '../RadioBtnComponent/RadioBtnComponent';
-import styles from './AdressSettings.module.css';
+import styled from 'styled-components';
+
+const Container = styled.div`
+	width: 100%;
+	display: flex;
+	flex-flow: column;
+	justify-content: flex-start;
+`
+
+const InputGroup = styled.div`
+	opacity: 1;
+
+	${props => (props.auto || (props.appliedTo === 'Wifi' && !props.wifiEnabled)) &&`
+		opacity: 0.5;
+	`}
+`
 
 const AdressSettings = React.memo(({
 	autoIP,
@@ -19,7 +34,7 @@ const AdressSettings = React.memo(({
 	altDNS, altDNSChanged }) => {
 
 	return (
-		<div className={styles.container}>
+		<Container>
 			<RadioBtnComponent
 				firstChoice={'Obtain an IP adress automatically (DHCP/BootP)'}
 				secondChoice={'Use the following IP adress'}
@@ -28,34 +43,34 @@ const AdressSettings = React.memo(({
 				radioValue={autoIP}
 				wifiEnabled={wifiEnabled}
 				appliedTo={appliedTo} />
-			<div style={{ opacity: autoIP || (appliedTo === 'Wifi' && !wifiEnabled) ? '0.5' : '1'}}>
-				<InputComponent 
-					label={'IP adress'} 
-					required 
-					disabled={autoIP} 
-					appliedTo={appliedTo} 
+			<InputGroup auto={autoIP} appliedTo={appliedTo} wifiEnabled={wifiEnabled}>
+				<InputComponent
+					label={'IP adress'}
+					required
+					disabled={autoIP}
+					appliedTo={appliedTo}
 					wifiEnabled={wifiEnabled}
 					inputChanged={IpChanged}
 					inputValue={inputIPValue}
 					errorMessage={errorIpMessage} />
-				<InputComponent 
-					label={'Subnet mask'} 
-					required 
-					disabled={autoIP} 
-					appliedTo={appliedTo} 
+				<InputComponent
+					label={'Subnet mask'}
+					required
+					disabled={autoIP}
+					appliedTo={appliedTo}
 					wifiEnabled={wifiEnabled}
 					inputChanged={subnetMaskChanged}
 					inputValue={inputSubnetMaskValue}
 					errorMessage={errorSubnetMaskMessage} />
-				<InputComponent 
-					label={'Default gateway'} 
-					disabled={autoIP} 
-					appliedTo={appliedTo} 
+				<InputComponent
+					label={'Default gateway'}
+					disabled={autoIP}
+					appliedTo={appliedTo}
 					wifiEnabled={wifiEnabled}
 					inputChanged={defaultGatewayChanged}
 					inputValue={defaultGateway} />
-			</div>
-			<RadioBtnComponent style={{ opacity: wifiEnabled ? '0.5' : '1'}}
+			</InputGroup>
+			<RadioBtnComponent
 				firstChoice={'Obtain DNS adress automatically'}
 				secondChoice={'Use the following DNS server adress'}
 				autoSelected={autoSelectedDNS}
@@ -63,24 +78,24 @@ const AdressSettings = React.memo(({
 				radioValue={autoDNS}
 				wifiEnabled={wifiEnabled}
 				appliedTo={appliedTo} />
-			<div style={{ opacity: autoDNS || (appliedTo === 'Wifi' && !wifiEnabled) ? '0.5' : '1'}}>
-				<InputComponent 
-					label={'Preferred DNS server'} 
-					required disabled={autoDNS} 
-					appliedTo={appliedTo} 
+			<InputGroup auto={autoDNS} appliedTo={appliedTo} wifiEnabled={wifiEnabled}>
+				<InputComponent
+					label={'Preferred DNS server'}
+					required disabled={autoDNS}
+					appliedTo={appliedTo}
 					wifiEnabled={wifiEnabled}
 					inputChanged={preferredDNSChanged}
 					inputValue={inputPreferredDNSValue}
 					errorMessage={errorPreferredDNSMessage} />
-				<InputComponent 
-					label={'Alternative DNS server'} 
-					disabled={autoDNS} 
-					appliedTo={appliedTo} 
+				<InputComponent
+					label={'Alternative DNS server'}
+					disabled={autoDNS}
+					appliedTo={appliedTo}
 					wifiEnabled={wifiEnabled}
 					inputChanged={altDNSChanged}
 					inputValue={altDNS} />
-			</div>
-		</div>
+			</InputGroup>
+		</Container>
 	);
 });
 

@@ -8,25 +8,58 @@ import FormControl from '@material-ui/core/FormControl';
 import Typography from '@material-ui/core/Typography';
 import Fab from '@material-ui/core/Fab';
 import Refresh from '@material-ui/icons/Refresh';
-import { styled } from '@material-ui/core/styles';
-import styles from './EnableWifi.module.css';
+import styled from 'styled-components';
 
-const SelectForm = styled(FormControl) ({
-	flexGrow: '1',
-	marginRight: '15px'
-})
+const SelectForm = styled(FormControl)`
+&& {
+	flex-grow: 1;
+	margin-right: 15px;
+	}
+`
 
-const RefreshBtn = styled(Fab) ({
-	border: '1px solid lightgrey',
-	background: 'white',
-	boxShadow: 'none'
-})
+const RefreshBtn = styled(Fab)`
+&& {
+	border: 1px solid lightgrey;
+	background: white;
+	box-shadow: none;
+	}
+`
 
-const StyledCheckbox = styled(Checkbox) ({
-	color: 'purple'
-})
+const StyledCheckbox = styled(Checkbox)`
+&& {
+	color: purple;
+	}
+`
 
-const asterisk = <span style={{ color: 'red' }}>*</span>;
+const Container = styled.div`
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	margin: 4px 0;
+`
+
+const SelectBlock = styled.div`
+	flex-basis: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	margin-left: 15px;
+`
+
+const SelectLabel = styled(Typography)`
+&& {
+	opacity: 0.5;
+
+	${props => props.wifiEnabled &&`
+		opacity: 1;
+	`}
+}
+`
+
+const Asterisk = styled.span`
+	color: red;
+`
 
 const EnableWifi = React.memo(({ 
 	required, 
@@ -48,12 +81,16 @@ const EnableWifi = React.memo(({
 				}
 				label="Enable wifi"
 			/>
-			<div className={styles.container}>
-				<Typography
-					style={{ opacity: wifiEnabled ? '1' : '0.5' }}
-					variant="subtitle1">Wireless Network Name: {required && asterisk} </Typography>
-				<div className={styles.half}>
-					<SelectForm variant="outlined" size="small" disabled={!wifiEnabled} error={wifiEnabled & !wifiNetworkName ? true : false}>
+			<Container>
+				<SelectLabel
+					wifiEnabled={wifiEnabled}
+					variant="subtitle1">Wireless Network Name: {required && <Asterisk>*</Asterisk>} </SelectLabel>
+				<SelectBlock>
+					<SelectForm
+						variant="outlined"
+						size="small"
+						disabled={!wifiEnabled}
+						error={wifiEnabled & !wifiNetworkName ? true : false}>
 						<InputLabel id="enable_wifi">Please select</InputLabel>
 						<Select labelId="enable_wifi" value={wifiNetworkName} onChange={wifiNetworkNameChanged}>
 							<MenuItem value="">
@@ -67,8 +104,8 @@ const EnableWifi = React.memo(({
 					<RefreshBtn size="small" disabled={!wifiEnabled} onClick={refreshBtnClicked}>
 						<Refresh />
 					</RefreshBtn>
-				</div>
-			</div>
+				</SelectBlock>
+			</Container>
 		</>
 	);
 });
